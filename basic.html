@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>D3.js with GeoPandas GeoDataFrame</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .map {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        const width = 960;
+        const height = 800;
+
+        // Create SVG element
+        const svg = d3.select("#map")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "map");
+
+        // Define projection and path generator
+        const projection = d3.geoMercator();
+
+        // Define a path generator
+        const path = d3.geoPath().projection(projection);
+
+        // Load GeoJSON data
+        d3.json("https://raw.githubusercontent.com/moonspaish/simplified/main/uat.geojson").then(function (data) {
+            // Draw map using GeoJSON data
+            projection.fitSize([width, height], data);
+            svg.selectAll("path")
+                .data(data.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill", "steelblue")
+                .attr("stroke", "white")
+                .attr("stroke-width", 0.5);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+https://raw.githubusercontent.com/moonspaish/simplified/main/county.geojson
+https://raw.githubusercontent.com/moonspaish/simplified/main/uat.geojson
